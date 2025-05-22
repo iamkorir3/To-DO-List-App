@@ -1,11 +1,14 @@
 var addlist = document.getElementById("btncalladders");
 var addsection = document.getElementById("schema");
-//console.log(addlist);
+var bodyText = document.getElementById("bodytext");
+
+// console.log(bodytext);
 
 addlist.addEventListener("click", calladders);
 
 function calladders() {
   addsection.classList.remove("hide_myelements");
+  bodyText.classList.add("hide_elements");
 }
 
 var btnaddlist = document.getElementById("btnaddlist");
@@ -42,9 +45,7 @@ function addTask() {
     btnmyOption.id = "btnoption" + (mylist.childElementCount + 1);
   }
   btnmyOption.onclick = taskOptions;
-  function taskOptions() {
-    mydashboard.classList.remove("hide_dashboard");
-  }
+  function taskOptions() {}
 
   return (taskName = "");
 }
