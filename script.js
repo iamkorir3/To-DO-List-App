@@ -15,8 +15,11 @@ var btnaddlist = document.getElementById("btnaddlist");
 var mylist = document.getElementById("mylist");
 var inputlist = document.getElementById("inputlist");
 var taskName = "";
-var stval = "";
 var btnmyOption;
+let quickaction = document.getElementById("quickaction_menu");
+let btnquickaction1 = document.getElementById("btn_quickaction1");
+let btnquickaction2 = document.getElementById("btn_quickaction2");
+let btnquickaction3 = document.getElementById("btn_quickaction3");
 
 inputlist.addEventListener("input", function (e) {
   taskName = e.target.value;
@@ -45,7 +48,9 @@ function addTask() {
     btnmyOption.id = "btnoption" + (mylist.childElementCount + 1);
   }
   btnmyOption.onclick = taskOptions;
-  function taskOptions() {}
+  function taskOptions() {
+    quickaction.classList.remove("hide_myelements");
+  }
 
   return (taskName = "");
 }
