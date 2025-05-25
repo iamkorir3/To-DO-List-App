@@ -15,17 +15,26 @@
         <ion-icon name="add-outline" class="btncalladders_color"></ion-icon>
       </button>
       <!-- <button class="btnEdit hide_dashboard" id="btnEdit">Edit</button> -->
-      <div class="mydashboard hide_dashboard" id="mydashboard">
+      <div class="mydashboard hide_CompletedList" id="mydashboard">
         <button class="btn_close" id="btn_closeDashboard">
           <ion-icon name="close-outline" class="btn_closeicon"></ion-icon>
         </button>
         <div class="btn_mydashboard">
           <h2 class="dashheading_heading">my dashboard</h2>
-          <button class="btndshboard" id="">View Completted Task</button>
+          <button class="btndshboard" id="openCmtditems">
+            Completed Items
+            <ion-icon
+              name="checkmark-outline"
+              class="CompletedIcon"
+              id="CompletedIcon"
+            ></ion-icon>
+          </button>
+          <p class="guiding_p">comming soon</p>
           <button class="btndshboard" id="">Calender</button>
-          <button class="btndshboard" id="">button 3</button>
-          <button class="btndshboard" id="">button 4</button>
-          <button class="btndshboard" id="">button 5</button>
+          <button class="btndshboard" id="">Rate US</button>
+          <button class="btndshboard" id="">Premium</button>
+          <button class="btndshboard" id="">Help</button>
+          <button class="btndshboard" id="">Setting</button>
         </div>
       </div>
       <div>
@@ -63,6 +72,22 @@
         <button class="btn_quickaction" id="btn_quickaction3">Delete</button>
       </div>
       <h3 class="body_text" id="bodytext">Your List Will Appear Here</h3>
+
+      <section class="Completed_list hide_CompletedList" id="CompletedList">
+        <div class="Completed_head">
+          <p></p>
+          <h2>
+            Completed Items
+            <ion-icon
+              name="checkmark-outline"
+              class="CompletedIcon"
+              id="CompletedIcon"
+            ></ion-icon>
+          </h2>
+          <button class="btnCompletedback" id="btnCompletedback">back</button>
+        </div>
+        <ul class="Completedlist" id="CompletedUl"></ul>
+      </section>
     </section>
   </body>
   <script type="text/javascript" src="/script.js"></script>

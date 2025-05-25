@@ -23,6 +23,14 @@ let btnquickaction1 = document.getElementById("btn_quickaction1");
 let btnquickactionMAR = document.getElementById("btn_quickaction2");
 let btnquickactionDel = document.getElementById("btn_quickaction3");
 let listID;
+//completed items variables
+let CompletedList = document.getElementById("CompletedList");
+let CompletedIcon = document.getElementById("CompletedIcon");
+let btnCompletedback = document.getElementById("btnCompletedback");
+let CompletedUl = document.getElementById("CompletedUl");
+let openCmtditems = document.getElementById("openCmtditems");
+let newtargetLI;
+//console.log(btnCompletedback);
 
 inputlist.addEventListener("input", function (e) {
   taskName = e.target.value;
@@ -32,42 +40,55 @@ inputlist.addEventListener("input", function (e) {
 btnaddlist.addEventListener("click", addTask);
 
 function addTask() {
+  btnmyOption = document.createElement("button");
+  let btnmyOptionNode = document.createTextNode("⋮");
+  btnmyOption.appendChild(btnmyOptionNode);
+
+  newListElmt = document.createElement("li");
+  textNode = document.createTextNode(taskName);
+  newListElmt.appendChild(textNode);
+  newListElmt.appendChild(btnmyOption);
+  newListElmt.id = "item" + (mylist.childElementCount + 1);
   if (
     taskName !== undefined &&
     taskName !== null &&
     taskName !== "" &&
     btnaddlist.innerHTML !== "Save"
   ) {
-    btnmyOption = document.createElement("button");
-    let btnmyOptionNode = document.createTextNode("⋮");
-    btnmyOption.appendChild(btnmyOptionNode);
-
-    newListElmt = document.createElement("li");
-    textNode = document.createTextNode(taskName);
-    newListElmt.appendChild(textNode);
-    newListElmt.appendChild(btnmyOption);
-    newListElmt.id = "item" + (mylist.childElementCount + 1);
-
     mylist.appendChild(newListElmt);
-
-    // QUICK ACTIONS
-
-    btnmyOption.id = "btnoption" + (mylist.childElementCount + 1);
-
-    btnmyOption.addEventListener("click", function (e) {
-      quickaction.classList.remove("hide_quickaction");
-      listID = e.target.parentElement.id;
-      targetLI = document.getElementById(listID);
-    });
-
-    btnquickactionDel.addEventListener("click", DelList);
-    function DelList() {
-      mylist.removeChild(targetLI);
-      quickaction.classList.add("hide_quickaction");
-    }
-
-    bodyText.classList.add("hide_quickaction");
   }
+
+  // QUICK ACTIONS
+
+  btnmyOption.id = "btnoption" + (mylist.childElementCount + 1);
+
+  btnmyOption.addEventListener("click", function (e) {
+    quickaction.classList.toggle("hide_quickaction");
+    listID = e.target.parentElement.id;
+    targetLI = document.getElementById(listID);
+    return targetLI;
+  });
+
+  btnquickactionDel.addEventListener("click", DelList);
+  function DelList() {
+    mylist.removeChild(targetLI);
+    quickaction.classList.add("hide_quickaction");
+  }
+
+  //COMPLETED ITEMS ACTIONS
+  btnquickactionMAR.addEventListener("click", function () {
+    quickaction.classList.add("hide_quickaction");
+    newtargetLI = document.createElement("li");
+    targetLI.removeChild(btnmyOption);
+    targetLI.appendChild(CompletedIcon);
+    newtargetLI.appendChild(targetLI);
+    CompletedUl.appendChild(newtargetLI);
+    mylist.removeChild(targetLI);
+  });
+
+  bodyText.classList.add("hide_quickaction");
+
+  // }
 
   if (btnaddlist.innerHTML === "Save") {
     btnmyOption = document.createElement("button");
@@ -97,8 +118,14 @@ function editlist() {
   btnaddlist.innerHTML = "Save";
   inputlist.focus();
   quickaction.classList.add("hide_quickaction");
-
   // mylist.replaceChild(newListElmt, "replaced");
+}
+
+openCmtditems.onclick = opeclocomCompletedList;
+btnCompletedback.onclick = opeclocomCompletedList;
+function opeclocomCompletedList() {
+  CompletedList.classList.toggle("hide_CompletedList");
+  mydashboard.classList.add("hide_CompletedList");
 }
 
 //MY DASHBOARD
@@ -107,12 +134,13 @@ var closeDashboard = document.getElementById("btn_closeDashboard");
 var opendashboard = document.getElementById("opendashboard");
 
 closeDashboard.addEventListener("click", function () {
-  mydashboard.classList.add("hide_dashboard");
+  mydashboard.classList.add("hide_CompletedList");
 });
 
 opendashboard.addEventListener("click", function () {
-  mydashboard.classList.remove("hide_dashboard");
+  mydashboard.classList.remove("hide_CompletedList");
 });
+//DASHBOARD BUTTONS FUNC
 
 // var btnmyOption = document.createElement("button");
 // var btnmyOptionNode = document.createTextNode("⋮");
