@@ -20,8 +20,9 @@ let textNode;
 let btnmyOption;
 let quickaction = document.getElementById("quickaction_menu");
 let btnquickaction1 = document.getElementById("btn_quickaction1");
-let btnquickaction2 = document.getElementById("btn_quickaction2");
-let btnquickaction3 = document.getElementById("btn_quickaction3");
+let btnquickactionMAR = document.getElementById("btn_quickaction2");
+let btnquickactionDel = document.getElementById("btn_quickaction3");
+let listID;
 
 inputlist.addEventListener("input", function (e) {
   taskName = e.target.value;
@@ -44,24 +45,28 @@ function addTask() {
     newListElmt = document.createElement("li");
     textNode = document.createTextNode(taskName);
     newListElmt.appendChild(textNode);
+    newListElmt.appendChild(btnmyOption);
     newListElmt.id = "item" + (mylist.childElementCount + 1);
-    let itemOptionId = newListElmt.id;
-    console.log(newListElmt.id);
 
     mylist.appendChild(newListElmt);
 
     // QUICK ACTIONS
-    let itemOption = document.getElementById(itemOptionId);
-    itemOption.appendChild(btnmyOption);
 
-    //   Task option button func
     btnmyOption.id = "btnoption" + (mylist.childElementCount + 1);
 
-    btnmyOption.onclick = taskOptions;
-    function taskOptions() {
-      // console.log("button clickde");
+    btnmyOption.addEventListener("click", function (e) {
       quickaction.classList.remove("hide_quickaction");
+      listID = e.target.parentElement.id;
+      targetLI = document.getElementById(listID);
+    });
+
+    btnquickactionDel.addEventListener("click", DelList);
+    function DelList() {
+      mylist.removeChild(targetLI);
+      quickaction.classList.add("hide_quickaction");
     }
+
+    bodyText.classList.add("hide_quickaction");
   }
 
   if (btnaddlist.innerHTML === "Save") {
@@ -74,25 +79,14 @@ function addTask() {
     let childToEditID = newListElmt.id;
     textNode = document.createTextNode(taskName);
     newListElmt.appendChild(textNode);
-    let itemOptionId = newListElmt.id;
-    let childToEdit = document.getElementById("item3");
+    newListElmt.appendChild(btnmyOption);
 
-    mylist.replaceChild(newListElmt, childToEdit);
-    let itemOption = document.getElementById(itemOptionId);
-    itemOption.appendChild(btnmyOption);
+    // let childToEdit = document.getElementById("item3");
+    console.log(targetLI);
+    mylist.replaceChild(newListElmt, targetLI);
 
     btnaddlist.innerHTML = "Add";
-
-    // let newtextnode;
-    // let mynewtextnode;
-    // mynewtextnode.document.createTextNode(taskName);
-    // newtextnode.appendChild(mynewtextnode);
-    // let updatemylist = document.getElementById("updatelist");
-    // inputlist.addEventListener("input", function (e) {
-    //   taskName = e.target.value;
-    // });
-    // mylist.replaceChild(newtextnode, newListElmt);
-    // alert("save clicked ");
+    quickaction.classList.add("hide_quickaction");
   }
   return [newListElmt, (taskName = "")];
 }
@@ -102,9 +96,11 @@ btnquickaction1.addEventListener("click", editlist);
 function editlist() {
   btnaddlist.innerHTML = "Save";
   inputlist.focus();
-  quickaction.classList.toggle("hide_quickaction");
+  quickaction.classList.add("hide_quickaction");
+
   // mylist.replaceChild(newListElmt, "replaced");
 }
+
 //MY DASHBOARD
 var mydashboard = document.getElementById("mydashboard");
 var closeDashboard = document.getElementById("btn_closeDashboard");
