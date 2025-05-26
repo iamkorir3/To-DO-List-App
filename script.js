@@ -8,6 +8,7 @@ addlist.addEventListener("click", calladders);
 
 function calladders() {
   addsection.classList.remove("hide_myelements");
+  inputlist.focus();
   bodyText.classList.add("hide_elements");
 }
 
@@ -30,6 +31,8 @@ let btnCompletedback = document.getElementById("btnCompletedback");
 let CompletedUl = document.getElementById("CompletedUl");
 let openCmtditems = document.getElementById("openCmtditems");
 let newtargetLI;
+let btnmyOptionLI;
+newtargetLI = document.createElement("li");
 //console.log(btnCompletedback);
 
 inputlist.addEventListener("input", function (e) {
@@ -48,6 +51,7 @@ function addTask() {
   textNode = document.createTextNode(taskName);
   newListElmt.appendChild(textNode);
   newListElmt.appendChild(btnmyOption);
+
   newListElmt.id = "item" + (mylist.childElementCount + 1);
   if (
     taskName !== undefined &&
@@ -65,8 +69,9 @@ function addTask() {
   btnmyOption.addEventListener("click", function (e) {
     quickaction.classList.toggle("hide_quickaction");
     listID = e.target.parentElement.id;
+    btnmyOptionLI = document.getElementById(btnmyOption.id);
     targetLI = document.getElementById(listID);
-    return targetLI;
+    // targetLI.removeChild(btnmyOption);
   });
 
   btnquickactionDel.addEventListener("click", DelList);
@@ -76,14 +81,28 @@ function addTask() {
   }
 
   //COMPLETED ITEMS ACTIONS
+  // btnquickactionMAR.onclick = remove;
+  // function remove() {
+  //   targetLI.removeChild(btnmyOption);
+  //   console.log(targetLI);
+  // }
+
   btnquickactionMAR.addEventListener("click", function () {
     quickaction.classList.add("hide_quickaction");
+    // mylist.removeChild(document.getElementById(listID));
     newtargetLI = document.createElement("li");
-    targetLI.removeChild(btnmyOption);
-    targetLI.appendChild(CompletedIcon);
-    newtargetLI.appendChild(targetLI);
-    CompletedUl.appendChild(newtargetLI);
-    mylist.removeChild(targetLI);
+    btnmyOptionLI = document.createElement("button");
+    let btnmyOptionLINode = document.createTextNode("✅");
+    btnmyOptionLI.appendChild(btnmyOptionLINode);
+    const secondChild = targetLI.childNodes[1];
+
+    // targetLI.removeChild(secondChild);
+    // targetLI.appendChild(btnmyOptionLI);
+    targetLI.replaceChild(btnmyOptionLI, secondChild);
+    // newtargetLI.appendChild(targetLI);
+    CompletedUl.appendChild(targetLI);
+
+    // console.log(mylist);
   });
 
   bodyText.classList.add("hide_quickaction");
@@ -110,6 +129,7 @@ function addTask() {
     quickaction.classList.add("hide_quickaction");
   }
   return [newListElmt, (taskName = "")];
+  reset();
 }
 
 // taskOptions();

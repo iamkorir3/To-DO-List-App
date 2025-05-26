@@ -26,15 +26,19 @@ html {
   font-size: 62.5%;
 }
 .container {
-  width: 38rem;
+  width: 44rem;
   /* max-width: 100%; */
-  min-height: 75rem;
+  min-height: 95rem;
+  /* min-height: 75rem; */
   border: 3px solid black;
   border-radius: 12px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
   margin: 0 auto;
   position: relative;
   height: fit-content;
   background-color: black;
+  overflow: hidden !important;
 }
 .dashboard {
   position: absolute;
@@ -112,6 +116,9 @@ html {
   margin-top: 2rem;
 }
 
+.mylist {
+  overflow-y: scroll;
+}
 .mylist li {
   background-color: #2c2c2c;
   margin: 0 auto;
@@ -265,12 +272,16 @@ COMPLETED TASK VIEW
   background-color: #2c2c2c;
   margin: 0 auto;
   font-size: 1.6rem;
-  padding: 0.4rem 0.3rem;
+  padding: 0.8rem 0.4rem;
   margin-bottom: 1rem;
   border-radius: 4px;
   display: flex;
   justify-content: space-between;
   width: 94%;
+}
+.Completed_list li button {
+  background-color: inherit;
+  border-radius: 50%;
 }
 
 .CompletedIcon {
