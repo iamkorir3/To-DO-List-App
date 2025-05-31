@@ -34,23 +34,44 @@ let openCmtditems = document.getElementById("openCmtditems");
 let newtargetLI;
 let btnmyOptionLI;
 
-const listitems = [];
+const listitems = JSON.parse(localStorage.getItem("listitems")) || [];
+// mylist.appendChild(listitems);
 
-const createItem = () => {
-  newListItem = document.createElement("li");
-  textNode = document.createTextNode(taskName);
-  btnmyOption = document.createElement("button");
-  btnmyOptionNode = document.createTextNode("⋮");
-  btnmyOption.appendChild(btnmyOptionNode);
-  newListItem.append(textNode, btnmyOption);
-  console.log(newListItem);
-  //   mylist.appendChild(newListItem);
-  return newListItem;
+pushList = (taskName) => {
+  listitems.push({
+    taskName,
+  });
+  localStorage.setItem("listitems", JSON.stringify(listitems));
+  return taskName;
+};
+
+const createItem = ({ taskName }) => {
+  taskName = inputlist.value;
+  if (
+    taskName !== undefined &&
+    taskName !== null &&
+    taskName !== "" &&
+    btnaddlist.innerHTML !== "Save"
+  ) {
+    newListItem = document.createElement("li");
+    textNode = document.createTextNode(taskName);
+    btnmyOption = document.createElement("button");
+    btnmyOptionNode = document.createTextNode("⋮");
+    btnmyOption.appendChild(btnmyOptionNode);
+    newListItem.append(textNode, btnmyOption);
+    console.log(newListItem);
+    mylist.appendChild(newListItem);
+    return newListItem;
+  }
 };
 
 listitems.forEach(createItem);
 
 btnaddlist.onclick = (e) => {
   taskName = inputlist.value;
-  createItem();
+  const newItem = pushList(inputlist.value);
+
+  createItem(taskName);
+  inputlist.value = "";
+  return taskName;
 };
