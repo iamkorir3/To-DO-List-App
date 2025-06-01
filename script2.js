@@ -37,24 +37,25 @@ let btnmyOptionLI;
 const listitems = JSON.parse(localStorage.getItem("listitems")) || [];
 // mylist.appendChild(listitems);
 
-pushList = (taskName) => {
+pushList = (myItem) => {
   listitems.push({
-    taskName,
+    myItem,
   });
   localStorage.setItem("listitems", JSON.stringify(listitems));
   return taskName;
 };
 
-const createItem = ({ taskName }) => {
-  taskName = inputlist.value;
+const createItem = ({ myItem }) => {
   if (
     taskName !== undefined &&
     taskName !== null &&
     taskName !== "" &&
     btnaddlist.innerHTML !== "Save"
   ) {
+    taskName = inputlist.value;
     newListItem = document.createElement("li");
-    textNode = document.createTextNode(taskName);
+    textNode = document.createTextNode(myItem);
+    // newListItem.innerHTML = myItem;
     btnmyOption = document.createElement("button");
     btnmyOptionNode = document.createTextNode("⋮");
     btnmyOption.appendChild(btnmyOptionNode);
@@ -68,10 +69,11 @@ const createItem = ({ taskName }) => {
 listitems.forEach(createItem);
 
 btnaddlist.onclick = (e) => {
-  taskName = inputlist.value;
+  e.preventDefault();
+  //   taskName = inputlist.value;
   const newItem = pushList(inputlist.value);
 
-  createItem(taskName);
+  createItem(newItem);
   inputlist.value = "";
   return taskName;
 };
