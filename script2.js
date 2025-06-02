@@ -33,6 +33,8 @@ let CompletedUl = document.getElementById("CompletedUl");
 let openCmtditems = document.getElementById("openCmtditems");
 let newtargetLI;
 let btnmyOptionLI;
+// TEMPOTRARY VARIABLES
+let myItem1;
 
 const listitems = JSON.parse(localStorage.getItem("listitems")) || [];
 // mylist.appendChild(listitems);
@@ -41,8 +43,9 @@ pushList = (myItem) => {
   listitems.push({
     myItem,
   });
+  console.log(listitems);
   localStorage.setItem("listitems", JSON.stringify(listitems));
-  return taskName;
+  return myItem;
 };
 
 const createItem = ({ myItem }) => {
@@ -62,6 +65,7 @@ const createItem = ({ myItem }) => {
     newListItem.append(textNode, btnmyOption);
     console.log(newListItem);
     mylist.appendChild(newListItem);
+    console.log(mylist);
     return newListItem;
   }
 };
@@ -69,11 +73,9 @@ const createItem = ({ myItem }) => {
 listitems.forEach(createItem);
 
 btnaddlist.onclick = (e) => {
-  e.preventDefault();
-  //   taskName = inputlist.value;
+  myItem1 = inputlist.value;
   const newItem = pushList(inputlist.value);
 
   createItem(newItem);
   inputlist.value = "";
-  return taskName;
 };

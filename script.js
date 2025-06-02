@@ -15,7 +15,7 @@ function calladders() {
 let btnaddlist = document.getElementById("btnaddlist");
 let mylist = document.getElementById("mylist");
 let inputlist = document.getElementById("inputlist");
-let taskName = "";
+let taskName;
 let newListElmt;
 let textNode;
 let btnmyOption;
@@ -36,36 +36,40 @@ let openCmtditems = document.getElementById("openCmtditems");
 let newtargetLI;
 let btnmyOptionLI;
 
-pushList = (myItem) => {
-  listitems.push({
-    myItem,
-  });
-  localStorage.setItem("targetLI", JSON.stringify(listitems));
-  return myItem;
-};
+// pushList = (myItem) => {
+//   listitems.push({
+//     myItem,
+//   });
+//   localStorage.setItem("targetLI", JSON.stringify(listitems));
+//   return myItem;
+// };
 
 newtargetLI = document.createElement("li");
 //console.log(btnCompletedback);
 
-btnaddlist.onclick = (e) => {
-  taskName = e.target.value;
-  let currentItem = pushList(taskName);
-  addTask(currentItem);
-};
+// btnaddlist.onclick = (e) => {
+//   taskName = e.target.value;
+//   // addTask();
+//   // let currentItem = pushList(taskName);
+//   // addTask(currentItem);
+// };
 
 btnaddlist.addEventListener("click", addTask);
 
 function addTask() {
+  taskName = inputlist.value;
   btnmyOption = document.createElement("button");
   let btnmyOptionNode = document.createTextNode("⋮");
   btnmyOption.appendChild(btnmyOptionNode);
 
   newListElmt = document.createElement("li");
+  console.log(taskName);
   textNode = document.createTextNode(taskName);
   newListElmt.append(textNode, btnmyOption);
 
   newListElmt.id = "item" + (mylist.childElementCount + 1);
   inputlist.value = "";
+  mylist.appendChild(newListElmt);
 
   if (
     taskName !== undefined &&
@@ -73,8 +77,7 @@ function addTask() {
     taskName !== "" &&
     btnaddlist.innerHTML !== "Save"
   ) {
-    mylist.appendChild(newListElmt);
-    localStorage.setItem("newlistitem", JSON.stringify(newListElmt));
+    // localStorage.setItem("newlistitem", JSON.stringify(newListElmt));
   }
   // listitems.forEach(addTask);
   // QUICK ACTIONS
